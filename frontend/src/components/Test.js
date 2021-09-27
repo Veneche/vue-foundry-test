@@ -1,16 +1,12 @@
-import {Component} from 'react';
-import Client from './Client';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-class ClientsList extends Component{
+class Test extends Component  {
     constructor(props){
         super(props);
         this.state = {
             clients: []
         };
-    }
-    componentDidMount(){
-        this.getClients();
     }
     async getClients(){
         let clients = [];
@@ -24,13 +20,22 @@ class ClientsList extends Component{
             clients: clients
         });
     }
+    componentDidMount(){
+        this.getClients();
+    }
+    
     render(){
         return(
             <div>
-                {this.state.clients.map(client => <Client name={client.name}/>)}
+                <h1>Clients</h1>
+                <div>
+                    {this.state.clients.map(client => <div>{client.name}</div>)} 
+                </div>
             </div>
         );
     }
+    
+
 }
 
-export default ClientsList;
+export default Test;
