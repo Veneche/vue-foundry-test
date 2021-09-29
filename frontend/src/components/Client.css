@@ -1,0 +1,30 @@
+.Client {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.Client-id {
+    font-size: small;
+    opacity: 0.5;
+    margin-right: 30px;
+    width: 30%;
+}
+
+.Client-name {
+    margin-right: 50px;
+    width: 50%;
+}
+
+.Client-buttons {
+    width: 20%;
+}
+
+.Client button {
+    border: none;
+    margin-right: 10px;
+}
+
+.Client button:hover {
+    cursor: pointer;
+}
