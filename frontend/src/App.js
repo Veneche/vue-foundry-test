@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <div className="App">      
-      <h1>Resource Engagement App</h1>
+      <h1>Resource Engagement</h1>
       <div className="App-container">
         <Navbar/>
         <div className="App-list">

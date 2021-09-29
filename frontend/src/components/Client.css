@@ -2,6 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: left;
+    padding-left: 15px;
+    line-height: 1.8rem;
+    color: rgb(58, 47, 62);
+    box-shadow: inset 0px 0px 2px 0px rgba(82, 69, 88, 0.265);
 }
 
 .Client-id {
@@ -20,9 +24,18 @@
     width: 20%;
 }
 
-.Client button {
-    border: none;
-    margin-right: 10px;
+.Client-buttons .fa-edit, .fa-trash-alt {
+    color: rgb(58, 47, 62);
+}
+
+.Client-button {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.Client-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 .Client button:hover {
