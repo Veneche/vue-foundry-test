@@ -15,6 +15,18 @@
     justify-content: left;
 }
 
+.Engagement-info input {
+    width: 80%;
+    height: 20px;
+    border-radius: 5px;
+    border-color: rgb(58, 47, 62);
+    border-width: 1px;
+    box-shadow: 0px 0px 10px 0px rgba(74, 60, 80, 0.8);
+    color: rgb(58, 47, 62);
+    font-weight: bold;
+    font-style: italic;
+}
+
 .Engagement-name, .Engagement-client, .Engagement-employee, .Engagement-started,  .Engagement-ended {
     width: 15%;
 }

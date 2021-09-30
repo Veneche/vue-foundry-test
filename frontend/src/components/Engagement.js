@@ -7,6 +7,7 @@ class Engagement extends Component{
         this.state = {
             isEditing: false,
             newName: "",
+            newDescr: "",
             startDate: "",
             endDate: ""
         };
@@ -15,6 +16,7 @@ class Engagement extends Component{
         this.handleSave = this.handleSave.bind(this);
         this.handleUndo = this.handleUndo.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleDescrChange = this.handleDescrChange.bind(this);
     }
     componentDidMount(){
         let startDate = this.convertDate(this.props.engagem.started);
@@ -22,7 +24,7 @@ class Engagement extends Component{
         /* let clientName = this.getClientName(this.props.engagem.client); */
 
         this.setState({
-            newName: this.props.name,
+            newName: this.props.engagem.name,
             startDate: startDate,
             endDate: endDate
         });
@@ -36,11 +38,11 @@ class Engagement extends Component{
     }
     handleRemove(){
         //handle remove client event
-        this.props.removeClient(this.props.id, this.props.name);
+        this.props.removeEngagement(this.props.id, this.props.name);
     }
     handleSave(){
         //handle save of edited client name
-        this.props.editClient(this.props.id, this.state.newName);
+        this.props.editEngagement(this.props.id, this.state.newName);
         //set state isEditing to false after saving
         this.setState({
             isEditing: false
@@ -56,6 +58,13 @@ class Engagement extends Component{
         //onchange event on input - change new name to edited input value
         this.setState({
             newName: evt.target.value
+        });
+    }
+
+    handleDescrChange(evt){
+        //onchange event on input - change new name to edited input value
+        this.setState({
+            newDescr: evt.target.value
         });
     }
 
@@ -80,7 +89,11 @@ class Engagement extends Component{
                     <div className="Engagement-client">{this.props.engagem.clientName}</div>
                     <div className="Engagement-employee">{this.props.engagem.employeeName}</div>
                     <div className="Engagement-started">{this.state.startDate}</div>
-                    <div className="Engagement-description">{this.props.engagem.description}</div>
+
+                    <div className="Engagement-description">
+                        {this.state.isEditing ? <input value={this.state.newDescr} onChange={this.handleDescrChange}/> : this.props.engagem.description}
+                    </div>
+
                     <div className="Engagement-ended">{this.state.endDate}</div>
                 </div>         
                 
