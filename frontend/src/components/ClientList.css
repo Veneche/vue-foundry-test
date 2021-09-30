@@ -1,8 +1,7 @@
-.ClientList-add {
+.ClientList-add-filter {
     display: flex;
     align-items: center;
-    justify-content: left;
-    text-align: center;
+    justify-content: space-between;
     margin-bottom: 10px;
     height: 50px;
     border-radius: 5px;
@@ -10,14 +9,14 @@
     box-shadow: 0px 0px 2px 0px rgb(55, 43, 61);
 }
 
-.ClientList-add label {
+.ClientList-add-filter label {
     margin-left: 15px;
     font-weight: bold;
     color: rgb(58, 47, 62);
     font-size: 0.9rem;
 }
 
-.ClientList-add input {
+.ClientList-add-filter input {
     border: none;
     border-radius: 5px;
     margin-right: 5px;
@@ -26,7 +25,7 @@
     box-shadow: 0px 0px 2px 0px rgb(82, 69, 88);
 }
 
-.ClientList-add button {
+.ClientList-add-filter button {
     border: none;
     border-radius: 5px;
     height: 22px;
@@ -35,8 +34,12 @@
     font-weight: bold;
 }
 
-.ClientList-add button:hover {
+.ClientList-add-filter button:hover {
     cursor: pointer;
+}
+
+.ClientList-add {
+    margin-right: 15px;
 }
 
 .ClientList-header {

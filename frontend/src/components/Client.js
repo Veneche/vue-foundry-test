@@ -20,25 +20,31 @@ class Client extends Component {
         });
     }
     handleEdit(){
+        //if editing client name, set state isEditing to true
         this.setState({
             isEditing: true
         });
     }
     handleRemove(){
+        //handle remove client event
         this.props.removeClient(this.props.id, this.props.name);
     }
     handleSave(){
+        //handle save of edited client name
         this.props.editClient(this.props.id, this.state.newName);
+        //set state isEditing to false after saving
         this.setState({
             isEditing: false
         });
     }
     handleUndo(){
+        //set state isEditing back to false
         this.setState({
             isEditing: false
         });
     }
     handleNameChange(evt){
+        //onchange event on input - change new name to edited input value
         this.setState({
             newName: evt.target.value
         });

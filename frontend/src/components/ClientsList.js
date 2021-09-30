@@ -8,10 +8,15 @@ class ClientsList extends Component{
         super(props);
         this.state = {
             clients: [],
-            newClient: ""
+            filteredClients: [],
+            newClient: "",
+            searchKeyword: "",
+            isFiltered: false
         };
         this.handleAdd = this.handleAdd.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
+        this.handleNameInputChange = this.handleNameInputChange.bind(this);
+        this.handleFilterInputChange = this.handleFilterInputChange.bind(this);
         this.clearInput = this.clearInput.bind(this);
         this.removeClient = this.removeClient.bind(this);
         this.editClient = this.editClient.bind(this);
@@ -33,10 +38,10 @@ class ClientsList extends Component{
         });
     }
     //Add new client to db and refresh client list
-    handleAdd(){
+    async handleAdd(){
         let newClientName = this.state.newClient;
         if(newClientName !== ""){
-            axios.post("http://localhost:3000/clients",{
+            await axios.post("http://localhost:3000/clients",{
                 "name": this.state.newClient
             })
             .then((response) => {
@@ -54,11 +59,43 @@ class ClientsList extends Component{
         
     }
 
+    handleFilter(){
+        let unfilteredClients = this.state.clients;
+        let filterKeyw = this.state.searchKeyword.toLowerCase();
+
+        console.log(filterKeyw);
+
+        if(filterKeyw.length>0){
+            let filteredClients = unfilteredClients.filter(client => (client.name.toLowerCase().indexOf(filterKeyw) > -1));
+
+            this.setState({
+                filteredClients: filteredClients
+            });
+            console.log(filteredClients);
+            this.setState({
+                isFiltered: true
+            });
+        } else {
+            this.setState({
+                isFiltered: false
+            });
+        }
+       
+    }
+
     //set state to changed input value
-    handleInputChange(evt){
+    handleNameInputChange(evt){
         this.setState({
             newClient: evt.target.value
         });
+    }
+
+    handleFilterInputChange(evt){
+        this.setState({
+            searchKeyword: evt.target.value
+        });
+
+        
     }
 
     //clear newClient state and input
@@ -97,20 +134,35 @@ class ClientsList extends Component{
     render(){
         return(
             <div className="ClientList">
-                <div className="ClientList-add">
-                    <label>
-                        <span className="ClientList-label">Add New Client:</span>
-                        <input type="text" onChange={this.handleInputChange} placeholder="Client Name" value={this.state.newClient}/>
-                        <button onClick={this.handleAdd}>Add</button>
-                    </label>
+                <div className="ClientList-add-filter">
+                    <div className="ClientList-filter">
+                        <label>
+                        <span className="ClientList-label">Filter By Client Name:</span>
+                            <input type="text" onChange={this.handleFilterInputChange} placeholder="Enter Keyword" value={this.state.searchKeyword}/>
+                            <button onClick={this.handleFilter}>Filter</button>
+                        </label>
+                    </div>
+                    
+                    <div className="ClientList-add">
+                        <label>
+                            <span className="ClientList-label">Add New Client:</span>
+                            <input type="text" onChange={this.handleNameInputChange} placeholder="Client Name" value={this.state.newClient}/>
+                            <button onClick={this.handleAdd}>Add</button>
+                        </label>
+                    </div>
+                    
                       
                 </div>
                 <div className="ClientList-header">
                     <div className="ClientList-id">Client ID</div>
                     <div className="ClientList-name">Client Name</div>
                 </div>
+                {(this.state.isFiltered) ? (
+                    this.state.filteredClients.map(client => <Client editClient={this.editClient} removeClient={this.removeClient} id={client.id} name={client.name}/>)
+                ) : (
+                    this.state.clients.map(client => <Client editClient={this.editClient} removeClient={this.removeClient} id={client.id} name={client.name}/>)
+                )}
                 
-                {this.state.clients.map(client => <Client editClient={this.editClient} removeClient={this.removeClient} id={client.id} name={client.name}/>)}
             </div>
         );
     }

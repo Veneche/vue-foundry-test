@@ -22,6 +22,7 @@
 
 .Client-buttons {
     width: 20%;
+    text-align: end;
 }
 
 .Client-buttons .fa-edit, .fa-trash-alt {
