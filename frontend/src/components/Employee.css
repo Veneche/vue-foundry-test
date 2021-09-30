@@ -1,0 +1,44 @@
+.Employee {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 15px;
+    line-height: 1.8rem;
+    color: rgb(58, 47, 62);
+    box-shadow: inset 0px 0px 2px 0px rgba(82, 69, 88, 0.265);
+}
+
+.Employee-id {
+    font-size: small;
+    opacity: 0.5;
+    margin-right: 30px;
+    width: 30%;
+}
+
+.Employee-name {
+    margin-right: 50px;
+    width: 50%;
+}
+
+.Employee-buttons {
+    width: 20%;
+    text-align: end;
+}
+
+.Employee-buttons .fa-edit, .fa-trash-alt {
+    color: rgb(58, 47, 62);
+}
+
+.Employee-button {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.Employee-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.Employee button:hover {
+    cursor: pointer;
+}
