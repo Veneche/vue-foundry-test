@@ -1,0 +1,47 @@
+.Engagement {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 15px;
+    line-height: 1.8rem;
+    color: rgb(58, 47, 62);
+    box-shadow: inset 0px 0px 2px 0px rgba(82, 69, 88, 0.265);
+}
+
+.Engagement-info {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.Engagement-name, .Engagement-client, .Engagement-employee, .Engagement-started,  .Engagement-ended {
+    width: 15%;
+}
+
+.Engagement-description {
+    width: 25%;
+}
+
+.Engagement-buttons {
+    width: 10%;
+    text-align: end;
+}
+
+.Engagement-buttons .fa-edit, .fa-trash-alt {
+    color: rgb(58, 47, 62);
+}
+
+.Engagement-button {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.Engagement-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.Engagement button:hover {
+    cursor: pointer;
+}

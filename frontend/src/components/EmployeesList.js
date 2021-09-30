@@ -18,8 +18,8 @@ class EmployeesList extends Component{
         this.handleNameInputChange = this.handleNameInputChange.bind(this);
         this.handleFilterInputChange = this.handleFilterInputChange.bind(this);
         this.clearInput = this.clearInput.bind(this);
-        this.removeClient = this.removeClient.bind(this);
-        this.editClient = this.editClient.bind(this);
+        this.removeEmployee = this.removeEmployee.bind(this);
+        this.editEmployee = this.editEmployee.bind(this);
     }
     //get list of employees
     componentDidMount(){
@@ -54,7 +54,7 @@ class EmployeesList extends Component{
             this.clearInput();
         } else {
             //if input is blank, display error to user
-            alert("Please enter a client name");
+            alert("Please enter an employee name");
         }
         
     }
@@ -107,7 +107,7 @@ class EmployeesList extends Component{
 
     //delete selected client from db
     //display success message
-    async removeClient(id, name){
+    async removeEmployee(id, name){
         await axios.delete(`http://localhost:3000/employees/${id}`)
         .then((response) => {
             console.log(response);
@@ -120,7 +120,7 @@ class EmployeesList extends Component{
     }
 
     //update client name based on input value
-    async editClient(id, newName){
+    async editEmployee(id, newName){
         await axios.put(`http://localhost:3000/employees/${id}`,{name: newName})
         .then((response) => {
             console.log(response);
@@ -156,8 +156,8 @@ class EmployeesList extends Component{
                       
                 </div>
                 <div className="EmployeesList-header">
-                    <div className="EmployeesList-id">Client ID</div>
-                    <div className="EmployeesList-name">Client Name</div>
+                    <div className="EmployeesList-id">Employee ID</div>
+                    <div className="EmployeesList-name">Employee Name</div>
                 </div>
                 {(this.state.isFiltered) ? (
                     this.state.filteredEmployees.map(emp => <Employee editEmployee={this.editEmployee} removeEmployee={this.removeEmployee} id={emp.id} name={emp.name}/>)

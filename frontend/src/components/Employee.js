@@ -27,11 +27,11 @@ class Employee extends Component{
     }
     handleRemove(){
         //handle remove client event
-        this.props.removeClient(this.props.id, this.props.name);
+        this.props.removeEmployee(this.props.id, this.props.name);
     }
     handleSave(){
         //handle save of edited client name
-        this.props.editClient(this.props.id, this.state.newName);
+        this.props.editEmployee(this.props.id, this.state.newName);
         //set state isEditing to false after saving
         this.setState({
             isEditing: false
