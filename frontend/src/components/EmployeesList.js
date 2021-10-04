@@ -2,6 +2,7 @@ import {Component} from 'react';
 import axios from 'axios';
 import Employee from './Employee';
 import "./EmployeesList.css";
+import {getEmployees} from "../utils/getData";
 
 class EmployeesList extends Component{
     constructor(props){
@@ -27,7 +28,7 @@ class EmployeesList extends Component{
     }
     async getEmployees(){
         let employees = [];
-        let res = await axios.get("http://localhost:3000/employees");
+        let res = await getEmployees();
 
         for(let i = 0; i < res.data.length; i++){
             employees.push(res.data[i]);

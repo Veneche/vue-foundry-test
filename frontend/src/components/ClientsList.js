@@ -2,6 +2,7 @@ import {Component} from 'react';
 import Client from './Client';
 import axios from 'axios';
 import "./ClientList.css";
+import {getClients} from "../utils/getData";
 
 class ClientsList extends Component{
     constructor(props){
@@ -27,7 +28,7 @@ class ClientsList extends Component{
     }
     async getClients(){
         let clients = [];
-        let res = await axios.get("http://localhost:3000/clients");
+        let res = await getClients();
 
         for(let i = 0; i < res.data.length; i++){
             clients.push(res.data[i]);

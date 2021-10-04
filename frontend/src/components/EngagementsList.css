@@ -9,6 +9,26 @@
     box-shadow: 0px 0px 2px 0px rgb(55, 43, 61);
 }
 
+.EngagementsList-Add {
+    display: none;
+}
+
+.EngagementsList-Add-btn {
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.EngagementsList-Add-active {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-bottom: 10px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: rgba(82,69,88,0.5);
+    box-shadow: 0px 0px 2px 0px rgb(55, 43, 61);  
+}
+
 .EngagementsList-filterby {
     display: flex;
     align-items: center;

@@ -4,6 +4,7 @@ import "react-dropdown/style.css";
 import Engagement from "./Engagement";
 import axios from "axios";
 import "./EngagementsList.css";
+import {getClients, getClient, getEmployees, getEmployee, getEngagements} from "../utils/getData";
 
 
 class EngagementsList extends Component{
@@ -14,13 +15,15 @@ class EngagementsList extends Component{
             filteredEngag: [],
             filterOption: "",
             filterKeyw: "",
-            isFiltered: false
+            isFiltered: false,
+            isAdding: false
         };
         this.getNames = this.getNames.bind(this);
         this.getEngagements = this.getEngagements.bind(this);
         this.handleFilterByChange = this.handleFilterByChange.bind(this);
         this.handleFilterInputChange = this.handleFilterInputChange.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
+        this.toggleAddFields = this.toggleAddFields.bind(this);
     }
 
     componentDidMount(){
@@ -31,7 +34,7 @@ class EngagementsList extends Component{
     }
     async getEngagements(){
         let engagements = [];
-        await axios.get("http://localhost:3000/engagements")
+        await getEngagements()
         .then((response) => {
             console.log("then"+response.data[0].name);
             for(let i = 0; i < response.data.length; i++){               
@@ -62,7 +65,7 @@ class EngagementsList extends Component{
             clientID =  engagements[i].client;
             employeeID =  engagements[i].employee;
 
-             await axios.get(`http://localhost:3000/clients/${clientID}`)
+             await getClient(clientID)
              .then((response) => {
                 clientName = response.data.name;             
                 engagements[i] = {...engagements[i],"clientName": clientName};
@@ -70,7 +73,7 @@ class EngagementsList extends Component{
                 console.log(error);
              }); 
 
-             await axios.get(`http://localhost:3000/employees/${employeeID}`)
+             await getEmployee(employeeID)
              .then((response) => {
                 employeeName = response.data.name;             
                 engagements[i] = {...engagements[i],"employeeName": employeeName};
@@ -128,20 +131,41 @@ class EngagementsList extends Component{
         }
     }
 
+    toggleAddFields(){
+        let isAddingBool = this.state.isAdding;
+
+        this.setState({
+            isAdding: !isAddingBool
+        });
+
+    }
+
     render(){
-        const dropdownOptions = ['Engagement Name', 'Client Name', 'Employee Name'];
-        const defaultDropdownOption = dropdownOptions[0];
+        const filterDropDownOptions = ['Engagement Name', 'Client Name', 'Employee Name'];
+        const defFilterDropDownOptions = filterDropDownOptions[0];
+
+        const addBtnText = (this.state.isAdding) ? "Cancel New Engagement" : "Start New Engagament";
+        const addFieldsClass = (this.state.isAdding) ? "EngagementsList-Add-active" : "EngagementsList-Add";
+
+
         return(
             <div className="EngagementsList">
                 <div className="EngagementsList-filter">
                     <div className="EngagementsList-filterby">
                         <div className="EngagementsList-filterby-label">Filter By:</div>
-                        <Dropdown className="EngagementsList-filterby-dropdown" options={dropdownOptions} onChange={this.handleFilterByChange} value={defaultDropdownOption} placeholder="Select an option" />                    
+                        <Dropdown className="EngagementsList-filterby-dropdown" options={filterDropDownOptions} onChange={this.handleFilterByChange} value={defFilterDropDownOptions} placeholder="Select an option" />                    
                     </div>                                     
                     <div className="EngagementsList-filter-keyword">
                         <input type="text" onChange={this.handleFilterInputChange} placeholder="Enter Keyword" value={this.state.filterKeyw}/>
                         <button onClick={this.handleFilter}>Filter</button>
-                    </div>  
+                    </div> 
+                    <div className="EngagementsList-Add-btn">
+                        <button onClick={this.toggleAddFields}>{addBtnText}</button>
+                    </div> 
+                </div>
+                <div className={addFieldsClass}>
+                <   div className="EngagementsList-Add-Name-label">Engagement Name:</div>
+                    {/* <Dropdown className="EngagementsList-Add-Name-dropdown" options={filterDropDownOptions} onChange={this.handleFilterByChange} value={defaultDropdownOption} placeholder="Select an option" /> */}
                 </div>
                 <div className="EngagementsList-header">
                     <div className="EngagementsList-name">Name</div>
