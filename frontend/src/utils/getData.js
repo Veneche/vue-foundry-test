@@ -4,8 +4,8 @@ function getClients(){
     return axios.get("http://localhost:3000/clients");
 }
 
-function getClient(clientID){
-    return axios.get(`http://localhost:3000/clients/${clientID}`);
+async function getClient(clientID){
+    return await axios.get(`http://localhost:3000/clients/${clientID}`);
 }
 
 function getEmployees(){
@@ -20,5 +20,12 @@ function getEngagements(){
     return axios.get("http://localhost:3000/engagements");
 }
 
+function getClientEngagements(clientID){
+    return axios.get(`http://localhost:3000/clients/${clientID}/engagements`);
+}
 
-export {getClients, getClient, getEmployees,getEmployee, getEngagements};
+function getEmployeeEngagements(employeeID){
+    return axios.get(`http://localhost:3000/employees/${employeeID}/engagements`);
+}
+
+export {getClients, getClient, getEmployees,getEmployee, getEngagements, getClientEngagements, getEmployeeEngagements};

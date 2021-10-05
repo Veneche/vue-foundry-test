@@ -1,5 +1,7 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import "./Client.css";
+
 
 class Client extends Component {
     constructor(props){
@@ -25,6 +27,7 @@ class Client extends Component {
             isEditing: true
         });
     }
+
     handleRemove(){
         //handle remove client event
         this.props.removeClient(this.props.id, this.props.name);
@@ -65,8 +68,9 @@ class Client extends Component {
                     </div>
                 ) : (               
                 <div className="Client-buttons">
-                    <div className="Client-button" onClick={this.handleEdit}><i class="fas fa-edit"></i></div>
-                    <div className="Client-button" onClick={this.handleRemove}><i class="fas fa-trash-alt"></i></div>
+                    <div title="Edit Client" className="Client-button" onClick={this.handleEdit}><i class="fas fa-edit"></i></div>
+                    <Link title="View Client Engagements" className="Client-button" to={`/engagements?role=Client&name=${this.props.name}&id=${this.props.id}`}><i class="fas fa-eye"></i></Link>
+                    <div title="Delete Client" className="Client-button" onClick={this.handleRemove}><i class="fas fa-trash-alt"></i></div>
                 </div>
                 )}
             </div>

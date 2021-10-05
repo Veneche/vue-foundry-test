@@ -37,7 +37,7 @@
     text-align: end;
 }
 
-.Client-buttons .fa-edit, .fa-trash-alt {
+.Client-buttons .fa-edit, .fa-trash-alt, .fa-eye {
     color: rgb(58, 47, 62);
 }
 

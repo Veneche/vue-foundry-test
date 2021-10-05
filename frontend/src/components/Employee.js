@@ -1,4 +1,5 @@
 import {Component} from 'react';
+import { Link } from 'react-router-dom';
 import "./Employee.css";
 
 class Employee extends Component{
@@ -51,6 +52,7 @@ class Employee extends Component{
     }
     
     render(){
+        
         return(
             <div className="Employee">
                 <div className="Employee-id">{this.props.id}</div>
@@ -65,8 +67,9 @@ class Employee extends Component{
                     </div>
                 ) : (               
                 <div className="Employee-buttons">
-                    <div className="Employee-button" onClick={this.handleEdit}><i class="fas fa-edit"></i></div>
-                    <div className="Employee-button" onClick={this.handleRemove}><i class="fas fa-trash-alt"></i></div>
+                    <div title="Edit Employee" className="Employee-button" onClick={this.handleEdit}><i class="fas fa-edit"></i></div>
+                    <Link title="View Employee Engagements" className="Client-button" to={`/engagements?role=Employee&name=${this.props.name}&id=${this.props.id}`}><i class="fas fa-eye"></i></Link>
+                    <div title="Delete Employee" className="Employee-button" onClick={this.handleRemove}><i class="fas fa-trash-alt"></i></div>
                 </div>
                 )}
             </div>

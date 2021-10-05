@@ -9,25 +9,7 @@
     box-shadow: 0px 0px 2px 0px rgb(55, 43, 61);
 }
 
-.EngagementsList-Add {
-    display: none;
-}
 
-.EngagementsList-Add-btn {
-    margin-left: auto;
-    margin-right: 15px;
-}
-
-.EngagementsList-Add-active {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    margin-bottom: 10px;
-    height: 50px;
-    border-radius: 5px;
-    background-color: rgba(82,69,88,0.5);
-    box-shadow: 0px 0px 2px 0px rgb(55, 43, 61);  
-}
 
 .EngagementsList-filterby {
     display: flex;
@@ -43,6 +25,8 @@
     font-size: 0.9rem;
 }
 
+
+
 .EngagementsList-filterby-dropdown .Dropdown-control {
     border-radius: 8px;
     box-shadow: 0px 0px 2px 0px rgb(82, 69, 88);
@@ -52,21 +36,32 @@
     padding-top: 4px;
 }
 
-.EngagementsList-filterby-dropdown .Dropdown-menu {
+.EngagementsList .Dropdown-menu {
     border-radius: 8px;
     font-size: 0.9rem;
 }
 
-.EngagementsList-filter input {
+.EngagementsList .Dropdown-option:hover {
+    background-color: rgba(82, 69, 88, 0.1);
+}
+
+.EngagementsList .Dropdown-menu .is-selected {
+    background-color: rgba(82, 69, 88, 0.1);
+}
+
+.EngagementsList input {
     border: none;
-    border-radius: 5px;
-    margin-right: 5px;
-    margin-left: 15px;
+    border-radius: 5px; 
     height: 25px;
     box-shadow: 0px 0px 2px 0px rgb(82, 69, 88);
 }
 
-.EngagementsList-filter button {
+.EngagementsList-filter input {
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.EngagementsList button {
     border: none;
     border-radius: 5px;
     height: 22px;
@@ -75,7 +70,7 @@
     font-weight: bold;
 }
 
-.EngagementsList-filter button:hover {
+.EngagementsList button:hover {
     cursor: pointer;
 }
 

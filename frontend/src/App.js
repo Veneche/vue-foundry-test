@@ -16,6 +16,7 @@ function App() {
           <Switch>
             <Route exact path="/employees" component={EmployeesList}/>
             <Route exact path="/clients" component={ClientsList}/>
+{/*             <Route exact path="/clients/:id/engagements" render={(props) => <EngagementsList clientID={props.match.params.id}/>}/> */}
             <Route exact path="/engagements" component={EngagementsList}/>
           </Switch>
         </div>

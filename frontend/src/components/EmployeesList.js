@@ -161,9 +161,9 @@ class EmployeesList extends Component{
                     <div className="EmployeesList-name">Employee Name</div>
                 </div>
                 {(this.state.isFiltered) ? (
-                    this.state.filteredEmployees.map(emp => <Employee editEmployee={this.editEmployee} removeEmployee={this.removeEmployee} id={emp.id} name={emp.name}/>)
+                    this.state.filteredEmployees.map(emp => <Employee key={emp.id} editEmployee={this.editEmployee} removeEmployee={this.removeEmployee} id={emp.id} name={emp.name}/>)
                 ) : (
-                    this.state.employees.map(emp => <Employee editEmployee={this.editEmployee} removeEmployee={this.removeEmployee} id={emp.id} name={emp.name}/>)
+                    this.state.employees.map(emp => <Employee key={emp.id} editEmployee={this.editEmployee} removeEmployee={this.removeEmployee} id={emp.id} name={emp.name}/>)
                 )}
                 
             </div>

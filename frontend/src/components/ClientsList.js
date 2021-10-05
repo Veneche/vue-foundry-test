@@ -132,6 +132,7 @@ class ClientsList extends Component{
         this.getClients();
     }
 
+
     render(){
         return(
             <div className="ClientList">
@@ -159,9 +160,9 @@ class ClientsList extends Component{
                     <div className="ClientList-name">Client Name</div>
                 </div>
                 {(this.state.isFiltered) ? (
-                    this.state.filteredClients.map(client => <Client editClient={this.editClient} removeClient={this.removeClient} id={client.id} name={client.name}/>)
+                    this.state.filteredClients.map(client => <Client key={client.id} editClient={this.editClient} removeClient={this.removeClient} id={client.id} name={client.name}/>)
                 ) : (
-                    this.state.clients.map(client => <Client editClient={this.editClient} removeClient={this.removeClient} id={client.id} name={client.name}/>)
+                    this.state.clients.map(client => <Client key={client.id} editClient={this.editClient} removeClient={this.removeClient} id={client.id} name={client.name}/>)
                 )}
                 
             </div>

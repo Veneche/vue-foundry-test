@@ -12,6 +12,7 @@ class Engagement extends Component{
             endDate: ""
         };
         this.handleRemove = this.handleRemove.bind(this);
+        this.handleEnd = this.handleEnd.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleUndo = this.handleUndo.bind(this);
@@ -20,29 +21,36 @@ class Engagement extends Component{
     }
     componentDidMount(){
         let startDate = this.convertDate(this.props.engagem.started);
+
         let endDate = (this.props.engagem.ended) ? this.convertDate(this.props.engagem.ended) : "Current";
-        /* let clientName = this.getClientName(this.props.engagem.client); */
 
         this.setState({
             newName: this.props.engagem.name,
+            newDescr: this.props.engagem.description,
             startDate: startDate,
             endDate: endDate
         });
         
     }
+
+    handleEnd(){
+        //add end date to engagement
+        this.props.endEngagement(this.props.engagem.id, this.props.engagem.name);
+    }
+
     handleEdit(){
-        //if editing client name, set state isEditing to true
+        //if editing engagement name, set state isEditing to true
         this.setState({
             isEditing: true
         });
     }
     handleRemove(){
-        //handle remove client event
-        this.props.removeEngagement(this.props.id, this.props.name);
+        //handle remove engagement event
+        this.props.removeEngagement(this.props.engagem.id, this.props.engagem.name);
     }
     handleSave(){
-        //handle save of edited client name
-        this.props.editEngagement(this.props.id, this.state.newName);
+        //handle save of edited engagement name and description
+        this.props.editEngagement(this.props.engagem.id, this.state.newName, this.state.newDescr);
         //set state isEditing to false after saving
         this.setState({
             isEditing: false
@@ -70,8 +78,9 @@ class Engagement extends Component{
 
     convertDate(d){
         let convertedDate = new Date(d);
-        let dateDay = (convertedDate.getDay().toString().length === 2) ? convertedDate.getDay().toString() : ("0" + convertedDate.getDay().toString());
-        let dateMonth = (convertedDate.getMonth().toString().length === 2) ? convertedDate.getMonth().toString() : ("0" + convertedDate.getMonth().toString());
+        
+        let dateDay = (convertedDate.getDate().toString().length === 2) ? convertedDate.getDate().toString() : ("0" + convertedDate.getDate().toString());
+        let dateMonth = ((convertedDate.getMonth()+1).toString().length === 2) ? (convertedDate.getMonth()+1).toString() : ("0" + (convertedDate.getMonth()+1).toString());
         let dateStr = dateDay + "-" + dateMonth + "-" + convertedDate.getFullYear().toString();
 
         return dateStr;
@@ -79,8 +88,10 @@ class Engagement extends Component{
 
 
     render(){
+        const engagemClass = (this.state.endDate === "Current") ? "Engagement current" : "Engagement ended";
+
         return(           
-            <div className="Engagement">    
+            <div className={engagemClass}>    
                 <div className="Engagement-info">
                     <div className="Engagement-name">
                         {this.state.isEditing ? <input value={this.state.newName} onChange={this.handleNameChange}/> : this.props.engagem.name}
@@ -104,8 +115,13 @@ class Engagement extends Component{
                     </div>
                 ) : (               
                 <div className="Engagement-buttons">
-                    <div className="Engagement-button" onClick={this.handleEdit}><i class="fas fa-edit"></i></div>
-                    <div className="Engagement-button" onClick={this.handleRemove}><i class="fas fa-trash-alt"></i></div>
+
+                    {(this.state.endDate === "Current") ? (
+                        <div title="End Engagement" className="Engagement-button" onClick={this.handleEnd}><i class="fas fa-stop-circle"></i></div>
+                    ) : ""}
+                    
+                    <div title="Edit Engagement" className="Engagement-button" onClick={this.handleEdit}><i class="fas fa-edit"></i></div>
+                    <div title="Delete Engagement" className="Engagement-button" onClick={this.handleRemove}><i class="fas fa-trash-alt"></i></div>
                 </div>
                 )}
             </div>

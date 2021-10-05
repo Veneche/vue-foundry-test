@@ -37,7 +37,7 @@
     text-align: end;
 }
 
-.Employee-buttons .fa-edit, .fa-trash-alt {
+.Employee-buttons .fa-edit, .fa-trash-alt, .fa-eye {
     color: rgb(58, 47, 62);
 }
 

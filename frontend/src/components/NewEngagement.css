@@ -1,0 +1,37 @@
+.NewEngagement {
+    display: none;
+}
+
+.NewEngagement-btn {
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.NewEngagement-active {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-bottom: 10px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: rgb(53, 43, 57);
+    color: white;
+    box-shadow: 0px 0px 2px 0px rgb(55, 43, 61);  
+}
+
+.NewEngagement-Name-label, .NewEngagement-Client-label, .NewEngagement-Employee-label, .NewEngagement-Descr-label {
+    margin-left: 15px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.NewEngagement-Client-dropdown .Dropdown-control, .NewEngagement-Employee-dropdown .Dropdown-control {
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px 0px rgb(82, 69, 88);
+    font-size: 0.8rem;
+    height: 30px;
+    width: 90px;
+    padding-top: 4px;
+}
