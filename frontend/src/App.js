@@ -2,7 +2,7 @@ import './App.css';
 import EmployeesList from './components/EmployeesList';
 import ClientsList from './components/ClientsList';
 import EngagementsList from './components/EngagementsList';
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 import Navbar from './components/Navbar';
 
 
@@ -14,9 +14,9 @@ function App() {
         <Navbar/>
         <div className="App-list">
           <Switch>
-            <Route exact path="/employees" component={EmployeesList}/>
+            <Redirect exact from="/" to="/clients" />
             <Route exact path="/clients" component={ClientsList}/>
-{/*             <Route exact path="/clients/:id/engagements" render={(props) => <EngagementsList clientID={props.match.params.id}/>}/> */}
+            <Route exact path="/employees" component={EmployeesList}/>
             <Route exact path="/engagements" component={EngagementsList}/>
           </Switch>
         </div>
