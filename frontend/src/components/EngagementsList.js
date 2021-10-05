@@ -45,7 +45,8 @@ class EngagementsList extends Component{
         this.getEmployees();
 
         const searchStr = queryString.parse(this.props.location.search);
-        if(searchStr !== ""){
+        console.log(searchStr.role);
+        if(searchStr.role && searchStr.name){
             let filter = searchStr.role + " Name";
             this.setState({
                 filterOption: filter,
