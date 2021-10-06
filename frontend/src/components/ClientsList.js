@@ -26,18 +26,27 @@ class ClientsList extends Component{
     componentDidMount(){
         this.getClients();
     }
+
+    //get list of clients
     async getClients(){
         let clients = [];
-        let res = await getClients();
 
-        for(let i = 0; i < res.data.length; i++){
-            clients.push(res.data[i]);
-        }
+        await getClients()
+        .then((res) => {
+            for(let i = 0; i < res.data.length; i++){
+                clients.push(res.data[i]);
+            }
+
+            this.setState({
+                clients: clients
+            });
+        }, (err) =>{
+            console.log(err);
+        });      
         
-        this.setState({
-            clients: clients
-        });
     }
+
+
     //Add new client to db and refresh client list
     async handleAdd(){
         let newClientName = this.state.newClient;
@@ -59,24 +68,23 @@ class ClientsList extends Component{
         }
         
     }
-
+    //handle filter by client name
     handleFilter(){
         let unfilteredClients = this.state.clients;
         let filterKeyw = this.state.searchKeyword.toLowerCase();
 
-        console.log(filterKeyw);
-
+        //if anything is entered in the filter keyword input
         if(filterKeyw.length>0){
+            //populate new array with clients that have names that contain the entered keyword
             let filteredClients = unfilteredClients.filter(client => (client.name.toLowerCase().indexOf(filterKeyw) > -1));
 
             this.setState({
-                filteredClients: filteredClients
-            });
-            console.log(filteredClients);
-            this.setState({
+                filteredClients: filteredClients,
                 isFiltered: true
             });
+
         } else {
+            //if no keyword is entered, change isFiltered to false
             this.setState({
                 isFiltered: false
             });
@@ -91,12 +99,11 @@ class ClientsList extends Component{
         });
     }
 
+    //set filter / search keyword to input value
     handleFilterInputChange(evt){
         this.setState({
             searchKeyword: evt.target.value
-        });
-
-        
+        });     
     }
 
     //clear newClient state and input
@@ -111,24 +118,23 @@ class ClientsList extends Component{
     async removeClient(id, name){
         await axios.delete(`http://localhost:3000/clients/${id}`)
         .then((response) => {
-            console.log(response);
             alert(`${name} removed successfully`);
         }, (error) => {
             console.log(error);
         });
-        this.getClients();
-        
+        //get updated clients list
+        this.getClients();  
     }
 
     //update client name based on input value
     async editClient(id, newName){
         await axios.put(`http://localhost:3000/clients/${id}`,{name: newName})
         .then((response) => {
-            console.log(response);
             alert(`${newName} updated successfully`);
         }, (error) => {
             console.log(error);
         });
+        //get updated clients list
         this.getClients();
     }
 

@@ -19,11 +19,16 @@ class Engagement extends Component{
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescrChange = this.handleDescrChange.bind(this);
     }
+
     componentDidMount(){
+        //convert date to readible format
         let startDate = this.convertDate(this.props.engagem.started);
 
+        //if enddate exists convert it to readible format, else change it to "Current"
         let endDate = (this.props.engagem.ended) ? this.convertDate(this.props.engagem.ended) : "Current";
 
+        //set new name and description to current name and description
+        //set dates to converted dates
         this.setState({
             newName: this.props.engagem.name,
             newDescr: this.props.engagem.description,
@@ -33,49 +38,7 @@ class Engagement extends Component{
         
     }
 
-    handleEnd(){
-        //add end date to engagement
-        this.props.endEngagement(this.props.engagem.id, this.props.engagem.name);
-    }
-
-    handleEdit(){
-        //if editing engagement name, set state isEditing to true
-        this.setState({
-            isEditing: true
-        });
-    }
-    handleRemove(){
-        //handle remove engagement event
-        this.props.removeEngagement(this.props.engagem.id, this.props.engagem.name);
-    }
-    handleSave(){
-        //handle save of edited engagement name and description
-        this.props.editEngagement(this.props.engagem.id, this.state.newName, this.state.newDescr);
-        //set state isEditing to false after saving
-        this.setState({
-            isEditing: false
-        });
-    }
-    handleUndo(){
-        //set state isEditing back to false
-        this.setState({
-            isEditing: false
-        });
-    }
-    handleNameChange(evt){
-        //onchange event on input - change new name to edited input value
-        this.setState({
-            newName: evt.target.value
-        });
-    }
-
-    handleDescrChange(evt){
-        //onchange event on input - change new name to edited input value
-        this.setState({
-            newDescr: evt.target.value
-        });
-    }
-
+    //function to convert dates to readible formats
     convertDate(d){
         let convertedDate = new Date(d);
         
@@ -86,6 +49,53 @@ class Engagement extends Component{
         return dateStr;
     }
 
+    //add end date to engagement (from parent component)
+    handleEnd(){      
+        this.props.endEngagement(this.props.engagem.id, this.props.engagem.name);
+    }
+
+    //if editing engagement name, set state isEditing to true
+    handleEdit(){
+        this.setState({
+            isEditing: true
+        });
+    }
+
+    //handle remove engagement event (from parent component)
+    handleRemove(){
+        this.props.removeEngagement(this.props.engagem.id, this.props.engagem.name);
+    }
+
+    //handle save of edited engagement name and description (from parent component)
+    handleSave(){
+        this.props.editEngagement(this.props.engagem.id, this.state.newName, this.state.newDescr);
+        
+        //set state isEditing to false after saving
+        this.setState({
+            isEditing: false
+        });
+    }
+
+    //set state isEditing back to false
+    handleUndo(){
+        this.setState({
+            isEditing: false
+        });
+    }
+
+    //onchange event on input - change new name to edited input value
+    handleNameChange(evt){
+        this.setState({
+            newName: evt.target.value
+        });
+    }
+
+    //onchange event on input - change new name to edited input value
+    handleDescrChange(evt){
+        this.setState({
+            newDescr: evt.target.value
+        });
+    }
 
     render(){
         const engagemClass = (this.state.endDate === "Current") ? "Engagement current" : "Engagement ended";

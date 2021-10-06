@@ -22,25 +22,34 @@ class EmployeesList extends Component{
         this.removeEmployee = this.removeEmployee.bind(this);
         this.editEmployee = this.editEmployee.bind(this);
     }
+
     //get list of employees
     componentDidMount(){
         this.getEmployees();
     }
+
+    //get list of employees
     async getEmployees(){
         let employees = [];
-        let res = await getEmployees();
-
-        for(let i = 0; i < res.data.length; i++){
-            employees.push(res.data[i]);
-        }
         
-        this.setState({
-            employees: employees
-        });
+        await getEmployees()
+        .then((res) => {
+            for(let i = 0; i < res.data.length; i++){
+                employees.push(res.data[i]);
+            }
+            
+            this.setState({
+                employees: employees
+            });
+        }, (err) => {
+            console.log(err);
+        }); 
     }
+
     //Add new client to db and refresh client list
     async handleAdd(){
         let newEmployeeName = this.state.newEmployee;
+
         if(newEmployeeName !== ""){
             await axios.post("http://localhost:3000/employees",{
                 "name": this.state.newEmployee
@@ -51,8 +60,10 @@ class EmployeesList extends Component{
             }, (error) => {
                 console.log(error);
             });
+
             this.getEmployees();
             this.clearInput();
+
         } else {
             //if input is blank, display error to user
             alert("Please enter an employee name");
@@ -60,43 +71,39 @@ class EmployeesList extends Component{
         
     }
 
+    //filter list by employee name
     handleFilter(){
         let unfilteredEmployees = this.state.employees;
         let filterKeyw = this.state.searchKeyword.toLowerCase();
-
-        console.log(filterKeyw);
 
         if(filterKeyw.length>0){
             let filteredEmployees = unfilteredEmployees.filter(client => (client.name.toLowerCase().indexOf(filterKeyw) > -1));
 
             this.setState({
-                filteredEmployees: filteredEmployees
-            });
-            console.log(filteredEmployees);
-            this.setState({
+                filteredEmployees: filteredEmployees,
                 isFiltered: true
             });
+
         } else {
+            //if no keyword entered, change isFiltered to false
             this.setState({
                 isFiltered: false
             });
-        }
-       
+        }  
     }
 
-    //set state to changed input value
+    //set new employee name to changed input value
     handleNameInputChange(evt){
         this.setState({
             newEmployee: evt.target.value
         });
     }
 
+    //set search keyword to changed input value
     handleFilterInputChange(evt){
         this.setState({
             searchKeyword: evt.target.value
-        });
-
-        
+        });      
     }
 
     //clear newEmployee state and input
@@ -111,20 +118,17 @@ class EmployeesList extends Component{
     async removeEmployee(id, name){
         await axios.delete(`http://localhost:3000/employees/${id}`)
         .then((response) => {
-            console.log(response);
             alert(`${name} removed successfully`);
         }, (error) => {
             console.log(error);
         });
-        this.getEmployees();
-        
+        this.getEmployees();      
     }
 
     //update client name based on input value
     async editEmployee(id, newName){
         await axios.put(`http://localhost:3000/employees/${id}`,{name: newName})
         .then((response) => {
-            console.log(response);
             alert(`${newName} updated successfully`);
         }, (error) => {
             console.log(error);
