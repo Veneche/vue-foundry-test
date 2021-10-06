@@ -312,10 +312,12 @@ class EngagementsList extends Component{
         await axios.put(`http://localhost:3000/engagements/${id}/end`)
         .then((response) => {
             alert(`${name} ended successfully`);
+            this.getEngagements();
+                
         }, (error) => {
             console.log(error);
         });
-        this.getEngagements();
+        
     }
 
     //save edited engagement name and/or description
@@ -323,10 +325,11 @@ class EngagementsList extends Component{
         await axios.put(`http://localhost:3000/engagements/${id}`,{name: newName, description: newDescr})
         .then((response) => {
             alert(`${newName} updated successfully`);
+            this.getEngagements();
         }, (error) => {
             console.log(error);
         });
-        this.getEngagements();
+        
     }
 
     //remove selected engagement
@@ -343,12 +346,12 @@ class EngagementsList extends Component{
     render(){
         //populate filter by options
         const filterDropDownOptions = ['Engagement Name', 'Client Name', 'Employee Name'];
-        const defFilterDropDownOptions = filterDropDownOptions[0];
+        // const defFilterDropDownOptions = filterDropDownOptions[0]; 
 
         //change button text and input fields class based on isAdding's value
         const addBtnText = (this.state.isAdding) ? "Cancel New Engagement" : "Start New Engagament";
         const addFieldsClass = (this.state.isAdding) ? "NewEngagement-active" : "NewEngagement";
-
+        
         return(
             <div className="EngagementsList">
 

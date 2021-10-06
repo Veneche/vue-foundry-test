@@ -9,7 +9,8 @@ class Engagement extends Component{
             newName: "",
             newDescr: "",
             startDate: "",
-            endDate: ""
+            endDate: "", 
+            engagemClass: ""
         };
         this.handleRemove = this.handleRemove.bind(this);
         this.handleEnd = this.handleEnd.bind(this);
@@ -20,12 +21,13 @@ class Engagement extends Component{
         this.handleDescrChange = this.handleDescrChange.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount(){     
         //convert date to readible format
         let startDate = this.convertDate(this.props.engagem.started);
 
         //if enddate exists convert it to readible format, else change it to "Current"
         let endDate = (this.props.engagem.ended) ? this.convertDate(this.props.engagem.ended) : "Current";
+        let engagemClass = (endDate === "Current") ? "Engagement current" : "Engagement ended";
 
         //set new name and description to current name and description
         //set dates to converted dates
@@ -33,9 +35,26 @@ class Engagement extends Component{
             newName: this.props.engagem.name,
             newDescr: this.props.engagem.description,
             startDate: startDate,
-            endDate: endDate
+            endDate: endDate,
+            engagemClass: engagemClass
         });
         
+    }
+
+    componentDidUpdate(prevProps){
+        //see if endDate has changed
+        if(this.props.engagem.ended !== prevProps.engagem.ended){
+
+            if(this.props.engagem.ended){
+                let endDate = this.convertDate(this.props.engagem.ended);
+
+                this.setState({
+                    endDate: endDate,
+                    engagemClass: "Engagement ended"
+                });
+            }
+            
+        }
     }
 
     //function to convert dates to readible formats
@@ -50,9 +69,10 @@ class Engagement extends Component{
     }
 
     //add end date to engagement (from parent component)
-    handleEnd(){      
-        this.props.endEngagement(this.props.engagem.id, this.props.engagem.name);
+    handleEnd(){
+        this.props.endEngagement(this.props.engagem.id, this.props.engagem.name);      
     }
+
 
     //if editing engagement name, set state isEditing to true
     handleEdit(){
@@ -98,10 +118,9 @@ class Engagement extends Component{
     }
 
     render(){
-        const engagemClass = (this.state.endDate === "Current") ? "Engagement current" : "Engagement ended";
 
         return(           
-            <div className={engagemClass}>    
+            <div className={this.state.engagemClass}>    
                 <div className="Engagement-info">
                     <div className="Engagement-name">
                         {this.state.isEditing ? <input value={this.state.newName} onChange={this.handleNameChange}/> : this.props.engagem.name}
