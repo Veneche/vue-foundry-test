@@ -1,0 +1,43 @@
+.FilterClientEmployee {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: rgba(82,69,88,0.5);
+    box-shadow: 0px 0px 2px 0px rgb(55, 43, 61);
+}
+
+.FilterClientEmployee label {
+    margin-left: 15px;
+    font-weight: bold;
+    color: rgb(58, 47, 62);
+    font-size: 0.9rem;
+}
+
+.FilterClientEmployee input {
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-left: 15px;
+    height: 20px;
+    box-shadow: 0px 0px 2px 0px rgb(82, 69, 88);
+}
+
+.FilterClientEmployee button {
+    border: none;
+    border-radius: 5px;
+    height: 22px;
+    background-color: rgb(251, 251, 251);
+    box-shadow: 0px 0px 2px 0px rgb(82, 69, 88);
+    font-weight: bold;
+}
+
+.FilterClientEmployee button:hover {
+    cursor: pointer;
+}
+
+.FilterClientEmployee-add {
+    margin-right: 15px;
+}

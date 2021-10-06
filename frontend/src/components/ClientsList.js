@@ -3,6 +3,7 @@ import Client from './Client';
 import axios from 'axios';
 import "./ClientList.css";
 import {getClients} from "../utils/getData";
+import FilterClientEmployee from './FilterClientEmployee';
 
 class ClientsList extends Component{
     constructor(props){
@@ -10,14 +11,10 @@ class ClientsList extends Component{
         this.state = {
             clients: [],
             filteredClients: [],
-            newClient: "",
-            searchKeyword: "",
             isFiltered: false
         };
-        this.handleAdd = this.handleAdd.bind(this);
-        this.handleFilter = this.handleFilter.bind(this);
-        this.handleNameInputChange = this.handleNameInputChange.bind(this);
-        this.handleFilterInputChange = this.handleFilterInputChange.bind(this);
+        this.addNewClient = this.addNewClient.bind(this);
+        this.filterByClient = this.filterByClient.bind(this);
         this.clearInput = this.clearInput.bind(this);
         this.removeClient = this.removeClient.bind(this);
         this.editClient = this.editClient.bind(this);
@@ -48,30 +45,25 @@ class ClientsList extends Component{
 
 
     //Add new client to db and refresh client list
-    async handleAdd(){
-        let newClientName = this.state.newClient;
-        if(newClientName !== ""){
-            await axios.post("http://localhost:3000/clients",{
-                "name": this.state.newClient
-            })
-            .then((response) => {
-                console.log(response);
-                alert(`${newClientName} added successfully`);
-            }, (error) => {
-                console.log(error);
-            });
-            this.getClients();
-            this.clearInput();
-        } else {
-            //if input is blank, display error to user
-            alert("Please enter a client name");
-        }
+    async addNewClient(newClientName){
+
+        await axios.post("http://localhost:3000/clients",{
+            "name": newClientName
+        })
+        .then((response) => {
+            console.log(response);
+            alert(`${newClientName} added successfully`);
+        }, (error) => {
+            console.log(error);
+        });
+        this.getClients();
+        this.clearInput();
         
     }
+    
     //handle filter by client name
-    handleFilter(){
+    filterByClient(filterKeyw){
         let unfilteredClients = this.state.clients;
-        let filterKeyw = this.state.searchKeyword.toLowerCase();
 
         //if anything is entered in the filter keyword input
         if(filterKeyw.length>0){
@@ -92,19 +84,6 @@ class ClientsList extends Component{
        
     }
 
-    //set state to changed input value
-    handleNameInputChange(evt){
-        this.setState({
-            newClient: evt.target.value
-        });
-    }
-
-    //set filter / search keyword to input value
-    handleFilterInputChange(evt){
-        this.setState({
-            searchKeyword: evt.target.value
-        });     
-    }
 
     //clear newClient state and input
     async clearInput(){
@@ -142,25 +121,8 @@ class ClientsList extends Component{
     render(){
         return(
             <div className="ClientList">
-                <div className="ClientList-add-filter">
-                    <div className="ClientList-filter">
-                        <label>
-                        <span className="ClientList-label">Filter By Client Name:</span>
-                            <input type="text" onChange={this.handleFilterInputChange} placeholder="Enter Keyword" value={this.state.searchKeyword}/>
-                            <button onClick={this.handleFilter}>Filter</button>
-                        </label>
-                    </div>
-                    
-                    <div className="ClientList-add">
-                        <label>
-                            <span className="ClientList-label">Add New Client:</span>
-                            <input type="text" onChange={this.handleNameInputChange} placeholder="Client Name" value={this.state.newClient}/>
-                            <button onClick={this.handleAdd}>Add</button>
-                        </label>
-                    </div>
-                    
-                      
-                </div>
+                <FilterClientEmployee role="Client" filterByClient={this.filterByClient} addNewClient={this.addNewClient} />
+                
                 <div className="ClientList-header">
                     <div className="ClientList-id">Client ID</div>
                     <div className="ClientList-name">Client Name</div>
