@@ -17,6 +17,7 @@ class NewEngagement extends Component{
         this.handleCreate = this.handleCreate.bind(this);
     }
 
+    //handle input changes - depending on which input is changed
     handleNewInputChange(evt){
         const target = evt.target;
         const name = target.name;
@@ -27,6 +28,7 @@ class NewEngagement extends Component{
         });
     }
 
+    //handle selected client dropdown change
     handleNewClientChange(option){
         const name = option.value;
 
@@ -35,6 +37,7 @@ class NewEngagement extends Component{
         });
     }
 
+    //handle selected employee dropdown change
     handleNewEmplChange(option){
         const name = option.value;
 
@@ -43,6 +46,7 @@ class NewEngagement extends Component{
         });
     }
 
+    //handle creation of new engagement (from parent component)
     handleCreate(){
         let name = this.state.newName;
         let client = this.state.newClient;
@@ -65,6 +69,7 @@ class NewEngagement extends Component{
     }
 
     render(){
+        //populate client and employee dropdowns
         const addClientOptions = [];
         this.props.clients.map(client => addClientOptions.push(client.name));
 
